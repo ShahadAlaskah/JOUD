@@ -18,24 +18,7 @@ const Ftest = ({ navigation }) => {
   const [Question, setQuestion] = React.useState("");
   const [Choices, setChoices] = React.useState([""]);
 
-  const getData = async () => {
-    const QustionCol = collection(db, "Qustion");
-    const QustionSnapshot = await getDocs(QustionCol);
-    const QustionList = QustionSnapshot.docs.map((doc) => doc.data());
-    //return QustionList;
-    console.log(QustionList[0].Answer);
-  };
-
-  const setData = async () => {
-    // Add a new document in collection "cities"
-    await setDoc(doc(db, "Qustion", "random"), {
-      Answer: "شهد",
-      Category: "شوشو",
-      Question: "مين؟",
-    });
-  };
   const Submitvent = async () => {
-    console.log(Answer + "--" + Question + "--" + Category + "--");
     await setDoc(doc(db, "Qustion", "random2"), {
       Answer: Answer,
       Category: Category,
@@ -47,22 +30,6 @@ const Ftest = ({ navigation }) => {
   return (
     <>
       <View style={styles.container}>
-        {/* <View style={styles.button1}>
-        <Button
-          onPress={getData}
-          title="getData"
-          color={'red'}
-        />
-        </View>
-        <View style={{padding:30}}></View>
-        <View style={styles.button1}>
-        <Button
-          onPress={setData}
-          title="setData"
-          color={'red'}
-        />
-        
-        </View> */}
         <SafeAreaView>
           <TextInput
             style={styles.input}
@@ -86,17 +53,17 @@ const Ftest = ({ navigation }) => {
           />
           <TextInput
             style={styles.input}
-            onChangeText={(Choices0) => Choices.push(Choices0)}
+            onChangeText={(Choices1) => Choices.push(Choices1)}
             value={Choices}
           />
           <TextInput
             style={styles.input}
-            onChangeText={(Choices0) => Choices.push(Choices0)}
+            onChangeText={(Choices2) => Choices.push(Choices2)}
             value={Choices}
           />
           <TextInput
             style={styles.input}
-            onChangeText={(Choices0) => Choices.push(Choices0)}
+            onChangeText={(Choices3) => Choices.push(Choices3)}
             value={Choices}
           />
           <View style={styles.button1}>
@@ -143,27 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#6F97B1",
     padding: 10,
   },
-  button2: {
-    flex: 1,
-    justifyContent: "center",
-    textAlign: "center",
-    alignItems: "center",
-    fontSize: 14,
-    lineHeight: 26,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: -0.3,
-    position: "absolute",
-    width: 224,
-    height: 58,
-    top: 479,
-    right: 1,
-    borderRadius: 100,
-    alignSelf: "center",
-    position: "absolute",
-    alignContent: "center",
-    backgroundColor: "#AFD1CB",
-  },
+  
   text1: {
     position: "absolute",
     top: 314,
@@ -178,14 +125,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     flex: 1,
   },
-  imge1: {
-    width: 218,
-    height: 296,
-    resizeMode: "contain",
-    left: -78,
-    top: 100,
-    transform: [{ rotate: "30deg" }],
-  },
+  
   input: {
     height: 40,
     margin: 12,
