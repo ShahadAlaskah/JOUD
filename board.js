@@ -10,30 +10,10 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
-//import {onSnapshot} from '@firebase/firebase'
-//import db from './firebase'
 import { fog, tape, pessimist, den } from "../screens/SinglePlayerMode";
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import StartUp from "./StartUp";
-// export const fog = (
-//   <Image
-//     source={require("../assets/fog.png")}
-//     style={{ width: 45, height: 45, resizeMode: "contain" }}
-//   />
-// );
-// export const tape = (
-//   <Image
-//     source={require("../assets/tape.png")}
-//     style={{ width: 30, height: 30, resizeMode: "contain" }}
-//   />
-// );
-// export const pessimist = (
-//   <Image
-//     source={require("../assets/pessimist.png")}
-//     style={{ width: 30, height: 30, resizeMode: "contain" }}
-//   />
-// );
 
 export default function Board() {
   let n = 6;
@@ -56,9 +36,6 @@ export default function Board() {
   let pssIndexs = [];
   let fogIndexs = [];
   let tapeIndexs = [];
-  // const board =
-  //     [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
-  //         21,22,23,24,25,26,27,28,2930,31,32,33,34,35];
   let board = [];
   //---------------------------------------------------------
   const getRandomElement = (arr) => {
@@ -101,11 +78,7 @@ export default function Board() {
   };
   //--------------------------------------------------------------
   let savePath = RandomSavePath();
-  // if (savePath.length > 10){
-  //   savePath = RandomSavePath();
-  // }
   //--------------------------------------------------------------
-  //const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
   const InitializeBoard = () => {
     let r = 1;
 
@@ -152,13 +125,7 @@ export default function Board() {
     }
     const notFoggyOrPss = (roomIndex) =>
       !(fogIndexs.includes(roomIndex) || pssIndexs.includes(roomIndex));
-    // let filteredFourQuarters = {
-    //   Q1: fourQuarters.Q1.filter(notFoggyOrPss),
-    //   Q2: fourQuarters.Q2.filter(notFoggyOrPss),
-    //   Q3: fourQuarters.Q3.filter(notFoggyOrPss),
-    //   Q4: fourQuarters.Q4.filter(notFoggyOrPss),
-    // }
-
+    
     tapeIndexs = [
       getRandomElement(fourQuarters.Q2.filter(notFoggyOrPss)),
       getRandomElement(fourQuarters.Q3.filter(notFoggyOrPss)),
@@ -171,31 +138,13 @@ export default function Board() {
     for (let i = 0; i < tapeIndexs.length; i++) {
       board[tapeIndexs[i]] = tape;
     }
-    // if(NumberOfPessimist != 0){
-    //   board = InitializeBoard();
-    //  }
-    //if(countOccurrences(Board , pessimist) < 3){InitializeBoard();}
+    
     board[0] = " ";
     board[DeanshipPosition] = " ";
     return board;
   };
-  //let pssIndexs = [];
-  //  let fogIndexs = [];
-  // board = InitializeBoard();
-
-  // if(NumberOfPessimist != 0){
-  //  board = InitializeBoard();
-  // }
-  //else if(countOccurrences(Board , pessimist) = 9){
-  //    let c=0;
-  //   }else {Board = InitializeBoard();}
-
-  // let gh= 'tyuio';
-  // if (savePath.includes(5)){
-  //   gh = "eeeee"
-  // }
-
-  return /*board = */ {
+  
+  return {
     Board: InitializeBoard(),
     PssIndexs: pssIndexs,
     FogIndexs: fogIndexs,
@@ -219,12 +168,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    //borderColor: "black",
-    //borderWidth: 5,
   },
   container: {
-    //flex: 1,
-    //flexDirection: 'column',
     flexDirection: "row",
     alignItems: "center",
   },
