@@ -1,14 +1,23 @@
 import React, { Component, useState, useEffect } from "react";
-import { View, StyleSheet, Text, Image, Button } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Button,
+  ImageBackground,
+} from "react-native";
 import StartUp from "../screens/StartUp";
+import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 import { authentication, db } from "../firebase/firebase-config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-export default function LossPessimist({ navigation }) {
+export default function Win({ navigation }) {
   const [Name, setName] = useState("");
   const [totalGame, setTotalGame] = useState(0);
-  const [totalLosses, setTotalLosses] = useState(0);
-  //const [TotalWins, setTotalWins] = useState(0);
+  //const [totalLosses, setTotalLosses] = useState(0);
+  const [totalWins, setTotalWins] = useState(0);
+  const [point, setPoint] = useState(0);
 
   const user = authentication.currentUser;
   var uid = user.uid;
@@ -16,25 +25,23 @@ export default function LossPessimist({ navigation }) {
 
   useEffect(() => {
     getDoc(docref).then((doc) => {
-      setName(doc.get("name"));
+      setPoint(doc.get("point"));
       setTotalGame(doc.get("TotalGame"));
-      setTotalLosses(doc.get("TotalLosses"));
+      setTotalWins(doc.get("TotalWins"));
     });
     updateDoc(doc(db, "player", uid), {
       TotalGame: totalGame + 1,
-      TotalLosses: totalLosses + 1,
+      TotalWins: totalWins + 1,
+      //Point: point + currentPoint,
     });
   }, []);
-
-  //console.log("hi:" + Name);
-
   return (
     <>
       <View
         style={{
           flex: 1,
           flexDirection: "column",
-          backgroundColor: "powderblue",
+          backgroundColor: "#FFFFFF",
           borderColor: "black",
           borderWidth: 3,
           justifyContent: "center",
@@ -49,127 +56,39 @@ export default function LossPessimist({ navigation }) {
         <View
           style={{
             flex: 1,
-            flexDirection: "row",
-            backgroundColor: "#D9E8F1",
-            height: 138,
-            width: 340,
-            top: 200,
-            position: "absolute",
-          }}
-          opacity={0.6}
-        >
-          <Text style={styles.text}>
-            وقعت بالمحبطين!{"\n"}لم توصل الاستبيان سليم إلى العمادة
-          </Text>
-
-          <Image
-            source={require("../assets/pessimist.png")}
-            style={{
-              flex: 1,
-              width: 70,
-              height: 114,
-              resizeMode: "contain",
-              left: 252,
-              top: 10,
-              position: "absolute",
-            }}
-          />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            height: 138,
-            width: 440,
-            left: -30,
-            top: 313,
+            justifyContent: "center",
+            alignItems: "center",
             position: "absolute",
           }}
         >
-          {/*
-           */}
           <Image
-            source={require("../assets/jouds.png")}
+            source={require("../assets/JoudWin3.jpg")}
             style={{
-              flex: 1,
-              width: 177,
-              height: 155,
+              top: 45,
+              width: 254,
+              height: 251,
               resizeMode: "contain",
-              left: 22,
-              top: 120,
-              //bottom: 30,
-              position: "absolute",
             }}
           />
           <View
             style={{
-              position: "absolute",
-              width: 151,
-              height: 57,
-              borderWidth: 1,
-              borderColor: "#DAE5EB",
-              borderRadius: 10,
-              top: 125,
-              left: 200,
+              backgroundColor: "#D9E8F1",
+              borderRadius: 20,
+              opacity: 0.6,
               justifyContent: "center",
               alignItems: "center",
+              flex: 1,
+              position: "absolute",
+              width: 74,
+              height: 31,
+              bottom: 230,
+              flexDirection: "row",
             }}
           >
-            <Image
-              source={require("../assets/joudicon.png")}
-              style={{
-                flex: 1,
-                width: 44,
-                height: 41,
-                resizeMode: "contain",
-                position: "absolute",
-                left: 100,
-                backgroundColor: "#D8E3E1",
-                borderRadius: 100,
-              }}
-            />
-            <Text
-              style={{
-                height: 21,
-                width: 141,
-                top: 15,
-                position: "absolute",
-                fontStyle: "normal",
-                right: 25,
-                fontWeight: "bold",
-                fontSize: 13,
-                lineHeight: 24,
-                textAlign: "center",
-                color: "#6F97B1",
-              }}
-            >
-              {Name}
-            </Text>
+            <Icon name="star" size={15} />
+            <Text style={{ opacity: 1 }}> 234</Text>
           </View>
         </View>
-        <View
-          style={{
-            flex: 1,
-            position: "absolute",
-            width: 151,
-            height: 57,
-            borderRadius: 10,
-            bottom: 20,
-            left: 170,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View style={{ bottom: 190 }}>
-            <Button
-              onPress={() => navigation.navigate("StartUp")}
-              title="العب مجددا!!"
-              color="black"
-            />
-          </View>
-        </View>
-        {/*  */}
       </View>
     </>
   );
