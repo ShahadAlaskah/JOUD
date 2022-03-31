@@ -2,9 +2,9 @@ import React, { Component, useState, useEffect } from "react";
 import { View, StyleSheet, Text, Image, Button } from "react-native";
 import StartUp from "../screens/StartUp";
 import { authentication, db } from "../firebase/firebase-config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-export default function LossTape({ navigation }) {
+export default function LossPessimist({ navigation }) {
   const [Name, setName] = useState("");
   const [totalGame, setTotalGame] = useState(0);
   const [totalLosses, setTotalLosses] = useState(0);
@@ -25,6 +25,8 @@ export default function LossTape({ navigation }) {
       TotalLosses: totalLosses + 1,
     });
   }, []);
+
+  //console.log("hi:" + Name);
 
   return (
     <>
@@ -57,11 +59,11 @@ export default function LossTape({ navigation }) {
           opacity={0.6}
         >
           <Text style={styles.text}>
-            اتلف الاستبيان!{"\n"}لم توصل الاستبيان سليم إلى العمادة
+            وقعت بالمحبطين!{"\n"}لم توصل الاستبيان سليم إلى العمادة
           </Text>
 
           <Image
-            source={require("../assets/Assetr.png")}
+            source={require("../assets/pessimist.png")}
             style={{
               flex: 1,
               width: 70,
