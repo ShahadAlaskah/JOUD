@@ -363,12 +363,11 @@ export default function SinglePlayerMode({ navigation }) {
   const [correctAnswer, setCorrectAnswer] = useState();
   const [questionType, setQuestionType] = useState(); //let correctAnswer = 1;QuestionLevel
   const [questionPoint, setQuestionPoint] = useState();
-  const [choices, setChoices] = useState([
-    { label: "" },
-    { label: "" },
-    { label: "" },
-    { label: "" },
-  ]);
+  const [choices, setChoices] = useState(["", "", "", ""]);
+  // { label: "" },
+  // { label: "" },
+  // { label: "" },
+  // { label: "" },
   const [questionLevel, setQuestionLevel] = useState();
   const [myPath, setMyPath] = useState([0]); //let myPath = [0]; ||setTheArray([...myPath, ]);
   const [board1, setBoard1] = useState([]);
@@ -579,30 +578,33 @@ export default function SinglePlayerMode({ navigation }) {
   //   },
   // ];
   const getQuestion = async () => {
-    const QuestionCol = collection(db, "QuestionsInfo");
-    const QuestionSnapshot = await getDocs(QuestionCol);
-    const QuestionList = QuestionSnapshot.docs.map((doc) => doc.data());
-    let qac = QuestionList[Math.floor(Math.random() * QuestionList.length)];
-    setQuestion(qac.Questionis);
-    setQuestionType(qac.Type);
-    setQuestionPoint(qac.Point);
-    setChoices(qac.Choices);
-    setQuestionLevel(qac.QuestionLevel);
-    setCorrectAnswer(qac.Answer);
+    // const QuestionCol = collection(db, "QuestionsInfo");
+    // const QuestionSnapshot = await getDocs(QuestionCol);
+    // const QuestionList = QuestionSnapshot.docs.map((doc) => doc.data());
+    // let qac = QuestionList[Math.floor(Math.random() * QuestionList.length)];
+    // setQuestion(qac.Questionis);
+    // setQuestionType(qac.Type);
+    // setQuestionPoint(qac.Point);
+    // setChoices(qac.Choices);
+    // setQuestionLevel(qac.QuestionLevel);
+    // setCorrectAnswer(qac.Answer);
     // if (questionLevel1.includes(positionOfNextRoom) && questionLevel != 1)
     //     getQuestion();
-    // setQuestion("hhhhhhhhhhhhhhhhhhhhh");
-    // setQuestionType("إختيار من متعدد");
-    // setQuestionPoint(5);
-    // setChoices(["h", "l", "k", "m"]);
-    // setQuestionLevel(1);
-    // setCorrectAnswer(2);
+    setQuestion("What are the types of academic accreditation?");
+    setQuestionType("إختيار من متعدد");
+    setQuestionPoint(5);
+    setChoices([
+      "Institutional accreditation",
+      "Program accreditation",
+      "Professional accreditation",
+      "All of the above",
+    ]);
+    setQuestionLevel(1);
+    setCorrectAnswer(3);
   };
 
   useEffect(() => {
-    getQuestion(
-      
-    );
+    getQuestion();
 
     // if (questionType === "إختيار من متعدد") {
     //   setTimeout(() => {
@@ -655,8 +657,8 @@ export default function SinglePlayerMode({ navigation }) {
         setPoint(Point + questionPoint);
         for (let i = 0; i < aa.length; i++) {
           if (
-            myPath.includes(positionOfNextRoom + aa[i]) == false ||
-            positionOfNextRoom + aa[i] != 35
+            myPath.includes(positionOfNextRoom + aa[i]) == false &&
+            positionOfNextRoom + aa[i] !== 35
           ) {
             //console.log("habbbbbbbb" + (positionOfNextRoom + aa[i]));
             if (aa[i] == 1) {
@@ -722,7 +724,7 @@ export default function SinglePlayerMode({ navigation }) {
         } else if (questionType === "صح وخطأ") {
           setTimeout(() => setModalVisible2(!isModalVisible), 1000);
         }
-        if (numberOfTape == 1) {
+        if (numberOfTape === 1) {
           endGame(2);
         } else {
           setnumberOfTape(numberOfTape - 1);
@@ -755,7 +757,10 @@ export default function SinglePlayerMode({ navigation }) {
         setMyPath([...myPath, roomNum + 1]);
         for (let index = 0; index < aa.length; index++) {
           if (aa[index] != 1) {
-            if (!myPath.includes(roomNum + aa[index])) {
+            if (
+              !myPath.includes(roomNum + aa[index]) &&
+              !(roomNum + aa[index] === 35)
+            ) {
               board[roomNum + aa[index]] = close;
             }
           }
@@ -769,7 +774,10 @@ export default function SinglePlayerMode({ navigation }) {
         setMyPath([...myPath, roomNum - 1]);
         for (let index = 0; index < aa.length; index++) {
           if (aa[index] != -1) {
-            if (!myPath.includes(roomNum + aa[index])) {
+            if (
+              !myPath.includes(roomNum + aa[index]) &&
+              !(roomNum + aa[index] === 35)
+            ) {
               board[roomNum + aa[index]] = close;
             }
           }
@@ -783,7 +791,10 @@ export default function SinglePlayerMode({ navigation }) {
         setMyPath([...myPath, roomNum - 6]);
         for (let index = 0; index < aa.length; index++) {
           if (aa[index] != -6) {
-            if (!myPath.includes(roomNum + aa[index])) {
+            if (
+              !myPath.includes(roomNum + aa[index]) &&
+              !(roomNum + aa[index] === 35)
+            ) {
               board[roomNum + aa[index]] = close;
             }
           }
@@ -797,7 +808,10 @@ export default function SinglePlayerMode({ navigation }) {
         setMyPath([...myPath, roomNum + 6]);
         for (let index = 0; index < aa.length; index++) {
           if (aa[index] != 6) {
-            if (!myPath.includes(roomNum + aa[index])) {
+            if (
+              !myPath.includes(roomNum + aa[index]) &&
+              !(roomNum + aa[index] === 35)
+            ) {
               board[roomNum + aa[index]] = close;
             }
           }
@@ -806,7 +820,7 @@ export default function SinglePlayerMode({ navigation }) {
     }
     //myPath.push(positionOfNextRoom);
     board[positionOfNextRoom] = board1[positionOfNextRoom];
-    if (roomNum == 35) {
+    if (positionOfNextRoom === 35) {
       endGame(3);
     }
   };
@@ -1303,7 +1317,7 @@ export default function SinglePlayerMode({ navigation }) {
                       displayQuestion(nexRoomNum, 0);
                     }}
                   >
-                    <Text style={styles.text}>{choices[0].label}</Text>
+                    <Text style={styles.text}>{choices[0]}</Text>
                   </Pressable>
                 </View>
                 <View style={styles.containerShowQ}>
@@ -1318,7 +1332,7 @@ export default function SinglePlayerMode({ navigation }) {
                       displayQuestion(nexRoomNum, 1);
                     }}
                   >
-                    <Text style={styles.text}>{choices[1].label}</Text>
+                    <Text style={styles.text}>{choices[1]}</Text>
                   </Pressable>
                 </View>
                 <View style={styles.containerShowQ}>
@@ -1333,7 +1347,7 @@ export default function SinglePlayerMode({ navigation }) {
                       displayQuestion(nexRoomNum, 2);
                     }}
                   >
-                    <Text style={styles.text}>{choices[2].label}</Text>
+                    <Text style={styles.text}>{choices[2]}</Text>
                   </Pressable>
                 </View>
                 <View style={styles.containerShowQ}>
@@ -1348,7 +1362,7 @@ export default function SinglePlayerMode({ navigation }) {
                       displayQuestion(nexRoomNum, 3);
                     }}
                   >
-                    <Text style={styles.text}>{choices[3].label}</Text>
+                    <Text style={styles.text}>{choices[3]}</Text>
                   </Pressable>
                 </View>
               </View>
