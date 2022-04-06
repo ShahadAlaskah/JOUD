@@ -45,9 +45,12 @@ ModalC('Explorer');
  //-----------------------------------------------
  if (pssIndexs.includes(positionOfNextRoom)) {
      freeze(PlayerFreeze);
+    }else{
+        //Move(Players,-1);
+        setPlayer1Position(positionOfNextRoom);
+        setPlayer2Position(positionOfNextRoom);
+        setRoomNum(positionOfNextRoom);
     }
- 
-
  }
  }
  }}
@@ -64,6 +67,6 @@ ModalC('Explorer');
     }
   };
    const freeze = (PlayerFreeze) => {
-   PlayerFreeze.
+   PlayerFreeze.ActiveState=false;
    }
  
