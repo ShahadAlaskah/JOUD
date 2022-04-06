@@ -1,15 +1,8 @@
 function Move(type,vote){
-//مايطلع لنا المودل 
+
  if(type==='Explorer'){
-   console.log('hello shahad');
-//   setModalVisible(true)
-//setModalVisible(false)setTimeout(()=>setExplorerModalVisible(true));
-// setExplorerModalVisible(true) 
-// setModalVisible(true)
-
 setTimeout(()=>setModalVisible(true),1000);
-ModalC('Explorer')
-
+ModalC('Explorer');
  }else if(type==='Players'){
  setPlayer1Position(positionOfNextRoom);
  setPlayer2Position(positionOfNextRoom);
@@ -44,11 +37,33 @@ ModalC('Explorer')
  MaxVotesOfFinalExplorer();
  if(finalExplorer===Players.player1.Email){
  setPlayer1Position(positionOfNextRoom)
+ setPlayerFreeze(Players.player1);
  }else if(finalExplorer===Players.player2.Email){
  setPlayer2Position(positionOfNextRoom)
+ setPlayerFreeze(Players.player2);
  }
+ //-----------------------------------------------
+ if (pssIndexs.includes(positionOfNextRoom)) {
+     freeze(PlayerFreeze);
+    }
+ 
 
  }
  }
  }}
+  const [PlayerFreeze, setPlayerFreeze] = useState('');
+ const endGame = (type) => {
+    //type{[1]LossPessimist or [2]LossTape or [3]Tape=0}
+   
+    if (type == 1) {
+      navigation.navigate("LossPessimist");
+    } else if (type == 2) {
+     navigation.navigate("LossTape");
+    } else if (type == 3) {
+       navigation.navigate("Win");
+    }
+  };
+   const freeze = (PlayerFreeze) => {
+   PlayerFreeze.
+   }
  
