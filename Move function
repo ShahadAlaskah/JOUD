@@ -1,0 +1,54 @@
+function Move(type,vote){
+//مايطلع لنا المودل 
+ if(type==='Explorer'){
+   console.log('hello shahad');
+//   setModalVisible(true)
+//setModalVisible(false)setTimeout(()=>setExplorerModalVisible(true));
+// setExplorerModalVisible(true) 
+// setModalVisible(true)
+
+setTimeout(()=>setModalVisible(true),1000);
+ModalC('Explorer')
+
+ }else if(type==='Players'){
+ setPlayer1Position(positionOfNextRoom);
+ setPlayer2Position(positionOfNextRoom);
+ setRoomNum(positionOfNextRoom);
+ }
+ else if(type==='Vote Explorer'){
+ const Ref = doc(db, "Game", roomID,'Votes','Explorer');
+ getDoc(Ref).then((doc)=> {
+ Player_Explorer1=doc.get('Player1');
+ Player_Explorer2=doc.get('Player2');
+ Player_Explorer3=doc.get('Player3');
+ Player_Explorer4=doc.get('Player4'); 
+ Player_Explorer5=doc.get('Player5'); 
+ }).catch((error) => {
+ alert(error.message);
+ });
+ if (vote === 0) {
+ validateExplorerVote("Player1");
+ } else if (vote === 1) {
+ validateExplorerVote("Player2");
+ } else if (vote === 2) {
+ validateExplorerVote("Player3");
+ } else if (vote === 3) {
+ validateExplorerVote("Player4");
+ }else if (vote === 4) {
+ validateExplorerVote("Player5");
+ }
+
+
+ if(Player_Explorer1.length+Player_Explorer2.length+Player_Explorer3.length+Player_Explorer4.length+Player_Explorer5.length===Player.length){ 
+ {setModalVisible(false);
+ MaxVotesOfFinalExplorer();
+ if(finalExplorer===Players.player1.Email){
+ setPlayer1Position(positionOfNextRoom)
+ }else if(finalExplorer===Players.player2.Email){
+ setPlayer2Position(positionOfNextRoom)
+ }
+
+ }
+ }
+ }}
+ 
