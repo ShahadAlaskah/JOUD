@@ -1051,11 +1051,6 @@ if(roomNum!=null){
   // ), []
   // );
   
-  const PlayersObject = doc(db, 'Game', roomID)
-  getDoc(PlayersObject).then((doc) => {
-    Players=(doc.get('Player'));
-    console.log('hi i am truueeeee', Players)
-  })
 
   async function control(Next_Room, FinalAnswer) {
 
@@ -1469,10 +1464,7 @@ if(roomNum!=null){
       //  setTimeout(()=>setModalVisible(true),1000);
       setQuestionModal(false);
       setExplorerModal(true);
-      updateDoc(doc(db, "Game", roomID), {
-        ExplorerModal: ExplorerModal,
-        QuestionModal:QuestionModal
-      }) 
+      
       // updateDoc(doc(db, "Game", roomID), {
       //   ExplorerModal: true,
       // })
@@ -1512,9 +1504,7 @@ if(roomNum!=null){
       if (Player_Explorer1.length + Player_Explorer2.length + Player_Explorer3.length + Player_Explorer4.length + Player_Explorer5.length === Player.length) {
         { 
           setExplorerModal(false);
-          updateDoc(doc(db, "Game", roomID), {
-            ExplorerModal: ExplorerModal,
-          }) 
+       
          // setModalVisible(false);
           MaxVotesOfFinalExplorer();
           if (finalExplorer === Players.player1.Email) {
